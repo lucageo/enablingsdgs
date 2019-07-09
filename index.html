@@ -8,13 +8,13 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/ > -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <script src="./materialize.js"></script>
-    <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
      <script src="./d3_v5.min.js"></script>
      <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <!-- <script src="https://d3js.org/d3v5.v3.js"></script> -->
 
 
-    <script src="./d3-multi-styles.js"></script>
+    <!-- <script src="./d3-multi-styles.js"></script> -->
 
     <script src="./popper.min.js"></script>
 
@@ -32,6 +32,10 @@
 }
 #nav-mobile{
   padding-left: 73px!important;
+}
+.card_toast.blue {
+    min-width: 340px!important;
+    max-width: 350px!important;
 }
 html {
 
@@ -138,12 +142,26 @@ margin-top: -3px;
         height: auto;
       }
 
-      .progress_test .progress,.determinate
-      {
-        height: 18px!important;
-      }
+#right_container > div.right_container_cards > ul > li.goal_stats_container > div.collapsible-header{
+  background-color: #cfd6da!important;
+padding: 0px;
+margin-bottom: -10px;
+}
 
-
+#right_container > div.right_container_cards > ul > li.goal_stats_container > div.collapsible-header> div > div.card-image > i{
+    color: #627079;
+margin-top: -3px;
+margin-right: 0px;
+}
+#right_container > div.right_container_cards > ul > li.goal_stats_container > div.collapsible-header > div > div.card-stacked > div > div{
+    color: #627079;
+}
+#right_container > div.right_container_cards > ul > li.goal_stats_container > div.collapsible-header > div{
+  background-color: #cfd6da!important;
+}
+#right_container > div.right_container_cards > ul > li.goal_stats_container > div.collapsible-header{
+      background-color: #cfd6da!important;
+}
     </style>
 </head>
 <body>
@@ -159,7 +177,7 @@ margin-top: -3px;
       <nav>
         <div class="nav-wrapper white darken-4">
           <a href="" class="brand-logo left"><img src="./img/sdgs_logo_60.png"></a>
-          <a href="" class="brand-logo center hide-on-med-and-down">SDGS Interlikages Toolkit</a>
+          <a href="" class="brand-logo center hide-on-med-and-down">Enabling SDGs</a>
           <ul id="nav-mobile">
             <li><a href="#" data-activates="slide-out" class="sidenav_trigger btn-floating btn-small waves-effect waves-light blue-grey lighten-1"><i class="material-icons">apps</i></a>
             </li>
@@ -185,7 +203,9 @@ margin-top: -3px;
                   </li>
                 </ul>
             <li> <a href="#" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 waves-effect waves-light dropdown-button btn dropdown_config_btn" data-activates="dropdown_config"><i class="material-icons md-light">settings</i></a></li>
-            <li> <a href="https://lucageo.github.io/sdgs_toolkit2/index_sat.html" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 waves-effect waves-light"><i class="material-icons md-light">dashboard</i></a></li>
+            <li>
+            <a href="https://lucageo.github.io/sdgs_toolkit2/index_sat.html" class="btn-floating btn-small waves-effect waves-light blue-grey lighten-1 waves-effect waves-light dropdown-button btn"><i class="material-icons md-light">dashboard</i></a>
+            </li>
           </ul>
           <ul class="right hide-on-med-and-down">
             <li><a href="https://lucageo.github.io/sdg_home/">PROJECT</a></li>
@@ -212,10 +232,10 @@ margin-top: -3px;
     <div id="sdg_cards_container">
     <div class="row"></div>
       <div style="display:none;" class="row chart_container">
-        <div id="chart" class="left col s6 offset-s3">
+        <div id="chart" class="left col s6">
           <div class='svg-container'></div>
         </div>
-          <div id="right_container" class="left col s12">
+          <div id="right_container" class="right col s4">
             <div id="graph"></div>
             <div class="right_container_cards">
                <ul class="collapsible" data-collapsible="accordion">
@@ -230,7 +250,7 @@ margin-top: -3px;
                                 </div>
                             </div>
                         </div>
-                          <div class="collapsible-body white">
+                          <div class="collapsible-body blue-grey lighten-5">
                               <ul>
                                   <li>
                                     <div class="row progress_test card-panel">
@@ -250,6 +270,10 @@ margin-top: -3px;
 
 
 <script type="text/javascript">
+
+
+
+
 
 var selected_goals_arr=[];
 
@@ -808,9 +832,13 @@ var xmouse, ymouse;
 
                  chart.buckets=these_targets.length;
 
-                    width_px=780;
-                       //5_3_text
-                       //var width_px=parseInt($('#chart').width());
+
+                       var width_x=parseInt($(window).width());
+                        var width_px=(width_x/2);
+
+
+                      var width_px=(width_x/2);
+                      var width_px=780;
 
                         margin = { top: 20, right: 40, bottom: 40, left: 20 },
                        width = width_px - margin.left,// - margin.right,
@@ -827,9 +855,12 @@ var xmouse, ymouse;
                        var w=width_px + margin.left + margin.right+20;
                        var h=width_px + margin.top + margin.bottom;
 
+                       console.info(width_px)
+
 
                  //legendElementWidth = gridSize;
                  //legendElementWidth = 30
+                 console.log(gridSize)
 
                  these_targets.map(function(d,i)
                  {
@@ -2159,7 +2190,7 @@ var xmouse, ymouse;
                                //   }
                                //   else
                                //   {
-                                   return 'white';
+                                   return '#eceff1';
                                  //}
                              })
                            .html(function(d)
@@ -2808,6 +2839,8 @@ var xmouse, ymouse;
                                            else
                                            {
                                              $('#toast-container').css('opacity',1);
+
+                                             
                                            }
 
                                          Materialize.toast($toastContent, 4000000,'card_toast blue');
@@ -2851,6 +2884,9 @@ var xmouse, ymouse;
                            })
 
 
+
+
+
                      cards.select("title").text(function(d) { return d.value; });
 
                      cards.exit().remove();
@@ -2858,6 +2894,10 @@ var xmouse, ymouse;
                  update_vis_labels_counts (selected_labels)
 
            } // ./heatmap
+
+
+
+
 
               $(window).on('resize',function()
                  {
@@ -2995,11 +3035,21 @@ var xmouse, ymouse;
                                  }
                            }
                            console.info(sel_goal_arr)
-                           $('.sidenav_trigger').trigger('click');
+
+                         //  if ($('body').css('overflow') !== 'hidden')
+                                   $('.sidenav_trigger').trigger('click');
+
+                         //materialize.js hacked
+
+
+
+                           //all CHECKED values in select
+                           //to_change
                            var sel_goals_arr=sel_goal_arr;
                            selected_goals_arr=sel_goal_arr;
 
                          },500)
+                  // selected.hide();
                  });
 
 
@@ -3018,6 +3068,19 @@ var xmouse, ymouse;
            $('.dropdown-button').dropdown();
 
            $('select').material_select();
+
+   /*    $('.card-action:first a').trigger('click')
+           $('.sidenav_trigger').trigger('click');
+
+           $('#check_all_goal_1').trigger('click')
+           $('#sidenav-overlay').css('opacity',0);*/
+
+
+
+
+var page_height = $( window ).height();
+var page_height_aj  = page_height -200
+$("#right_container").css( "max-height", page_height_aj );
 
 
    var showChar = 30;  // How many characters are shown by default
@@ -3057,6 +3120,45 @@ var xmouse, ymouse;
        });
 
 
-</script>
-</body>
-</html>
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//    var elem = document.querySelectorAll('.side-nav');
+
+//     var sidenav_instance = M.Sidenav.init(elem,{
+//     edge: 'left',
+//     draggable: true,
+//     inDuration: 250,
+//     outDuration: 200,
+//     onOpenStart: null,
+//     onOpenEnd: null,
+//     onCloseStart: null,
+//     onCloseEnd: null,
+//     preventScrolling: true
+// })//, options);
+// console.dir(sidenav_instance)
+//      $('.sidenav_trigger').on('click',function()
+//              {
+
+//               if ($('.side-nav').is(':visible'))
+//               {
+//                 //sidenav_instance.open();
+//                 $('.side-nav').sidenav('open');
+//               }
+//               else
+//               {
+//                //sidenav_instance.close();
+//                $('.side-nav').sidenav('close');
+//               }
+//              })
+// });
+
+
+    //var sidenav_instance = M.Sidenav.getInstance(elem);
+
+
+
+
+          </script>
+
+</body></html>

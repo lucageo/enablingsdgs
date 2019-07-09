@@ -63,10 +63,7 @@
       <nav>
         <div class="nav-wrapper white darken-4">
           <a href="" class="brand-logo left"><img src="./img/sdgs_logo_60.png"></a>
-          <a href="" class="brand-logo center hide-on-med-and-down">Enabling SDGs
-            <!-- <span>Exploring Colombian dataset</span> -->
-
-          </a>
+          <a href="" class="brand-logo center hide-on-med-and-down">Enabling SDGs</a>
           <ul id="nav-mobile">
 
           <!--
@@ -165,7 +162,7 @@
                               </div>
 
                                <div class='col s4'>
-                                  <a class="waves-effect waves-light btn on">Apply</a>
+                                  <a class="waves-effect waves-light btn off">Apply</a>
                                  </div>
 
                             </div>
@@ -4149,6 +4146,8 @@ $('#intro_modal').modal('open');
             {
 
               var data_id=$(this).find('option:selected')[0].value;
+              
+
               if (data_id=='empty') return false;
               
               var _type= $('#satellite_selects_opt form input:checked').attr('id')
@@ -4159,14 +4158,19 @@ $('#intro_modal').modal('open');
 
             $('#satellite_selects_opt form').change(function()
              {
-
+                var data_id=$('.satellite_options select').find('option:selected')[0].value;
+                  if (value!=='empty')
+                  {
+                   
                   
 
                   var _type=$(this).find('input:checked').attr('id');
-                  var data_id=$('.satellite_options select').find('option:selected')[0].value;
-                  if (data_id=='empty') return false;
+                  
+                 // if (data_id=='empty') return false;
 
                   create_satellite(data_id,_type);
+
+                  }
 
               })
 
@@ -4683,6 +4687,8 @@ $('#satellite_selects_opt .btn').on('click',function()
 
 function create_satellite(data_id,_type)
     {
+
+      //initially, 'off'
       if ($('#satellite_selects_opt .btn').hasClass('on'))
       {
         $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply');	

@@ -7,22 +7,6 @@
   src: url(./roboto.woff2) format('woff2');
 }
 
-.btn-floating {
-    background-color: #0fafe0!important;
-}
-
-.btn, .btn-large {
-    background-color: #0fafe0!important;
-}
-[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
-    border: 2px solid #0fafe0!important;
-}
-[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
-    background-color: #0fafe0!important;
-}
-
-
-
 #right_container .material-icons
 {
   padding: 10px;
@@ -52,10 +36,6 @@
   font-size: 0.7em!important;
   padding:0 1rem;
 }
-.satellite_tip .toast_target
-{
-	margin-bottom: 10px;
-}
 .card_text_form:hover
 {
   cursor: pointer;
@@ -71,7 +51,7 @@
 }
 .ul_satellite,.card_text_form
 {
-
+  
   display: none;
 }
 
@@ -79,17 +59,9 @@
 {
  min-height: 330px;
 }
-.satellite_selects_opt div
+.satellite_selects_opt div 
 {
   display: inline;
-}
-.low_opacity
-{
-  opacity: 0.3!important;
-}
-.full_opacity
-{
-  opacity: 1!important;
 }
 .blacked
 {
@@ -205,20 +177,9 @@ color: #374752;
           padding: 7px 6px!important;
 
     }
-
-#right_container > div.right_container_cards > ul > li.li_goal_container.class_1.active > div.collapsible-body > ul > table > tbody > tr > td:nth-child(3) > div > div > input{
-
-font-size: 0.7rem!important;
-margin: 0 0 20px 5px!important;
-
-}
-
-    .sel_table_value {
-        padding: 5px;
-        border-radius: 4px;
-        border-color: 1px solid;
-        font-size: 11px;
-        margin-bottom: -23px;
+    .sel_table_value
+    {
+          padding: 5px;
     }
     .sel_table_value:hover
     {
@@ -226,11 +187,6 @@ margin: 0 0 20px 5px!important;
     }
     body > div.sdg_container > nav > div > a.brand-logo.center.hide-on-med-and-down{
         color: #444!important;
-    }
-    body > div.sdg_container > nav > div > a span
-    {
-      display: block;
-      font-size: 0.8em!important;
     }
        #right_container
        {
@@ -288,11 +244,11 @@ margin-top: -3px;
       .card_val_title
       {
         font-weight: bold;
-        color: black;
+        color: white;
         position: absolute;
-        float: left;
+        float: right;
         margin-right: 51px;
-            font-size: 1.3em;
+            font-size: 1.7em;
       }
       .progress_test
       {
@@ -311,22 +267,20 @@ margin-top: -3px;
 }
 .xLabels_counter
 {
-  font-size: 14px;
-  fill: #21485f!important;
-  font-weight: bold;
+    font-size: 0.8em;
 
+    fill: #03A9F4!important;
+    font-weight: bold;
 }
-nav .nav-wrapper {
-    position: relative;
-    height: 100%;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-}
+
 .yLabels_counter
 {
-  font-size: 14px;
-  fill: #21485f!important;
-  font-weight: bold;
+    /*font-size: 19px!important;*/
+
+    font-size: 0.8em;
+
+    fill: #03A9F4!important;
+    font-weight: bold;
 }
 
 /*hacked from materialize, bug on v0.100.2 version*/
@@ -357,7 +311,7 @@ nav .nav-wrapper {
 }
 .progress
 {
-background-color: #fdfdfd!important;
+background-color: #f1f1f1!important;
   }
  .tables_container
       {
@@ -459,29 +413,10 @@ html {
 }
 .xLabel_tooltip,.yLabel_tooltip
 {
-  min-width: 440px!important;
-  max-width: 450px!important;
+  min-width: 340px!important;
+  max-width: 350px!important;
   color: white;
-  padding: 4px;
-  margin-bottom: 10px;
-  max-height: 200px!important;
-
-      
-    font-size: 0.9em!important;
-}
-
-.xLabel_tooltip small,.yLabel_tooltip small
-{
-  display: block;
-  padding-top:30px;
-
- font-size: 0.7em;
-}
-.xLabel_tooltip
-{
-  max-height: 100px!important;
-  font-size: 0.8em!important;
-  padding:2px;
+  padding: 8px;
 }
 
 .card_toast.blues
@@ -525,7 +460,6 @@ table.highlight > tbody > tr:hover {
     display: inline-block;
     position: relative;
     width: 100%;
-    margin-top: 10px; 
     padding-bottom: 100%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
@@ -618,21 +552,9 @@ table.highlight > tbody > tr:hover {
         height: auto;
 
       }
-
-      .card {
-          position: relative;
-          margin: .5rem 0 1rem 0;
-          background-color: #eceff1!important;
-          -webkit-transition: -webkit-box-shadow .25s;
-          transition: -webkit-box-shadow .25s;
-          transition: box-shadow .25s;
-          transition: box-shadow .25s, -webkit-box-shadow .25s;
-          border-radius: 2px;
-      }
-
       .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
-          -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.08), 0 1px 5px 0 rgba(0,0,0,0.08), 0 3px 1px -2px rgba(0,0,0,0.1)!important;
-          box-shadow: 0 2px 2px 0 rgba(255, 255, 255, 0.14), 0 1px 5px 0 rgba(105, 105, 105, 0.12), 0 3px 1px -2px rgba(187, 187, 187, 0.2)!important;
+          -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.08), 0 1px 5px 0 rgba(0,0,0,0.08), 0 3px 1px -2px rgba(0,0,0,0.1);
+          box-shadow: 0 2px 2px 0 rgba(255, 255, 255, 0.14), 0 1px 5px 0 rgba(105, 105, 105, 0.12), 0 3px 1px -2px rgba(187, 187, 187, 0.2);
       }
       .responsive-table thead
       {
@@ -640,7 +562,7 @@ table.highlight > tbody > tr:hover {
       }
       .right_container_cards .collapsible-body,.right_container_cards .collapsible-header
       {
-background-color: #eceff1!important;
+    background-color: #fbf9f9;
       }
       .goal_container
       {
@@ -649,13 +571,9 @@ background-color: #eceff1!important;
         padding: 10px;
         margin: 2px;
       }
-      .card-panel {
-
-    background-color: #eceff1!important;
-}
       .collapsible-header {
 
-          border-bottom: 1px solid #e0e4e6!important;
+          border-bottom: 1px solid #fbf9f9!important;
       }
       .card-sdg-goal
       {
@@ -694,7 +612,7 @@ background-color: #eceff1!important;
       }
 .link{
 
-  /*border-radius: 50px!important;*/
+  border-radius: 50px!important;
 }
       .card_toast
       text.mono,#chart text.mono {
@@ -823,30 +741,13 @@ background-color: #eceff1!important;
 
 
       }
-.progress_test {
-    padding: 5px!important;
-}
-      .progress_test .progress, .determinate {
-    height: 5px!important;
-    border-radius: 7px!important;
-}
-      .z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
-          -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(0, 0, 0, 0)!important;
-          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(0, 0, 0, 0)!important;
-      }
-      .progress_num_rec > span {
-          font-weight: bold;
-          font-size: 1em!important;
-          color: #637584!important;
-      }
-    .progress_category{
-          font-size: 1em!important;
-    }
-      #right_container {
 
-          overflow: auto;
-          position: relative;
-      }
+      #right_container
+     {
+      max-height: 700px;
+    overflow: auto;
+    }
+
     #right_container table tr:hover
     {
       cursor: pointer;
@@ -1000,17 +901,4 @@ min-height: 100px;
     margin-left: -24px!important;
     color: #f0ebdd;
     border-radius: 2px;
-}
-::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-  border-left: 0;
-  background: rgba(0, 0, 0, 0.1);
-}
-::-webkit-scrollbar-track {
-  background: none;
-}
-::-webkit-scrollbar-thumb {
-  background: #3e3e3e;
-  border-radius: 0;
 }

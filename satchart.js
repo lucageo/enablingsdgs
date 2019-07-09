@@ -189,6 +189,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        'line-height': 1.5,
 	        'font-weight': 'bold',
 	        'padding': '12px',
+
 	        background: 'rgba(0, 0, 0, 0.8)',
 	        color: '#fff',
 	        'max-width':'250px',
@@ -390,7 +391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          return d.position.y;
 	        },
 	        'font-family': 'sans-serif',
-	        'font-size': this.config.moonRadius * 0.5,
+	        'font-size': this.config.moonRadius * 0.65,
 	        'text-anchor': 'middle',
 	        'alignment-baseline': 'middle',
 	        fill: 'gray',
@@ -481,6 +482,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        	
 	        /*  _d2.default.select(this).selectAll('circle').transition()
 	          .duration(that.config.transitionDuration).ease(that.config.ease).attr('r', that.config.planetToMoon);
+}
 */
 /*	          that.outerSun.selectAll('path').transition().duration(that.config.transitionDuration).ease(that.config.ease).attr('d', outerSunArcPlanetSelected(index));*/
 
