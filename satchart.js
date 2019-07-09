@@ -513,10 +513,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }).each('end', function () {
 	        _this2.moons.selectAll('g.moon').on('mouseover', function (data) {
 	        	
-
+	        	console.log('mooooons');
+	        	console.info(data)
 	        	var cards=d3v5.selectAll('.link');
-                cards.transition().duration(150).style('opacity',0.1);
-
+                cards.classed('low_opacity',true);
                 var sel=cards.filter(function(d)
                          {
                          	
@@ -524,7 +524,8 @@ return /******/ (function(modules) { // webpackBootstrap
                          });
                 
 
-                sel.transition().duration(150).style('opacity',1);
+                sel.classed('low_opacity',false)
+                //transition().duration(150).style('opacity',1);
 
 	          _d2.default.select(this).selectAll('circle').transition().duration(that.config.transitionDuration).ease(that.config.ease).attr({
 	            'r': config.moonRadius * 1.2,
@@ -543,7 +544,7 @@ return /******/ (function(modules) { // webpackBootstrap
                          });
                 
 
-                sel.transition().duration(50).style('opacity',1);
+                sel.classed('low_opacity',false)
 
 	          _d2.default.select(this).selectAll('circle').transition().duration(that.config.transitionDuration).ease(that.config.ease).attr({
 	            'r': config.moonRadius,
