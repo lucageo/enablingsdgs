@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html><head>
 
@@ -152,6 +153,8 @@
                                   <span>
                                     <input name="group1" type="radio" id="from_id" checked/>
                                     <label for="from_id">From target</label>
+
+
                                   </span>
                                   <span>
                                     <input name="group1" type="radio" id="to_id" />
@@ -161,7 +164,7 @@
                               </div>
 
                                <div class='col s4'>
-                                  <a class="waves-effect waves-light btn off">Apply</a>
+                                  <a class="waves-effect waves-light btn initial_off off">Apply</a>
                                  </div>
 
                             </div>
@@ -339,7 +342,7 @@ $('#intro_modal').modal('open');
                                     if ($(this).hasClass('index'))
                                     {
                                   
-										window.location.replace('https://lucageo.github.io/enablingsdgs/sdgs_make_matrix.html')
+										window.location.replace('http://d6-dev-sdgitk.ies.jrc.it/sdgs_toolkit2/index.html')
                                     }
                                     else
                                     {
@@ -3044,7 +3047,7 @@ $('#intro_modal').modal('open');
                            }
                            else
                            {
-                             return 0.1;
+                             return 0.8;
                            }
                          })
                          .style("fill", function(d) {
@@ -4141,7 +4144,7 @@ $('#intro_modal').modal('open');
             $('.satellite_options select').append(satellites_sel_html);
 
             $('.satellite_options select').material_select();
-            $('.satellite_options select').change(function()
+            $('.satellite_options select').change(function(e)
             {
 
               var data_id=$(this).find('option:selected')[0].value;
@@ -4150,15 +4153,15 @@ $('#intro_modal').modal('open');
               if (data_id=='empty') return false;
               
               var _type= $('#satellite_selects_opt form input:checked').attr('id')
-              create_satellite(data_id,_type);
+              create_satellite(data_id,_type,e);
 
             })
 
-
-            $('#satellite_selects_opt form').change(function()
+            //RADIO BUTTONS
+            $('#satellite_selects_opt form').change(function(e)
              {
                 var data_id=$('.satellite_options select').find('option:selected')[0].value;
-                  if (value!=='empty')
+                  if (data_id!=='empty')
                   {
                    
                   
@@ -4167,7 +4170,7 @@ $('#intro_modal').modal('open');
                   
                  // if (data_id=='empty') return false;
 
-                  create_satellite(data_id,_type);
+                  create_satellite(data_id,_type,e);
 
                   }
 
@@ -4662,33 +4665,65 @@ $('#intro_modal').modal('open');
 
        });
 
-$('#satellite_selects_opt .btn').on('click',function()
+$('#satellite_selects_opt .btn').on('click',function(e)
 {
-   var cards=d3v5.selectAll('.link');
-   $('.fixed_col_row').removeClass('fixed_col_row');
+  
+                var data_id=$('.satellite_options select').find('option:selected')[0].value;
+                 
 
-    if ($(this).hasClass('off'))
-    {
-      cards.classed('blacked',false).classed('satellite_selected',false).style('opacity',1);
-      options.config.satellites=false;
-      
-      $(this).removeClass('off').addClass('on').text('Apply')
-    }
-    else
-    {
-      options.config.satellites=true;
-      
-      $('#vis-container').trigger('mouseenter')
-      $(this).removeClass('on').addClass('off').text('Reset');
-      
-    }
-})
+                  var _type=$('#satellite_selects_opt form').find('input:checked').attr('id');
+                if (data_id!=='empty')
+                {
+                  create_satellite(data_id,_type,e)
+                }
+})                  
 
-function create_satellite(data_id,_type)
+function create_satellite(data_id,_type,e)
     {
+      console.trace()
+      console.log($(e.target).is('select'))
+      var cards=d3v5.selectAll('.link');
+      $('.fixed_col_row').removeClass('fixed_col_row');
 
+      if ($('#satellite_selects_opt .btn').hasClass('off'))
+      {
+        console.log('activatiiiiing')
+ 
+        options.config.satellites=true;
+         
+        $('#vis-container').trigger('mouseenter')
+
+        if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off'))
+        {
+           
+          
+           $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
+          
+        }
+       
+      }
+      else
+      {
+       var cards=d3v5.selectAll('.link');
+        console.log('de-actuive')
+        cards.classed('blacked',false).classed('satellite_selected',false);
+        cards.classed('low_opacity',false)
+        //.style('opacity',1);
+        options.config.satellites=false;
+        $('#vis-container').empty();
+         
+              $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply'); 
+
+        return false
+          
+        
+        
+        
+       
+        
+      }
       //initially, 'off'
-      if ($('#satellite_selects_opt .btn').hasClass('on'))
+  /*    if ($('#satellite_selects_opt .btn').hasClass('on'))
       {
         $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply');	
       }
@@ -4696,8 +4731,8 @@ function create_satellite(data_id,_type)
       {
       	$('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
       }
-      
-      options.config.satellites=true;
+      */
+      //options.config.satellites=true;
       $('.fixed_col_row').removeClass('fixed_col_row');
 
       $('.ul_satellite').show();
@@ -4855,11 +4890,16 @@ function create_satellite(data_id,_type)
                 
                 cards.classed('satellite_selected',false);
                 cards.classed('blacked',true);
+                cards.classed('low_opacity',true);
                 
 
                 var row_cards=cards.filter(function(data)
                            {
                              return (data.visualized==true && data.from_id==data_id);
+                           });
+                var col_cards=cards.filter(function(data)
+                           {
+                             return (data.visualized==true && data.to_id==data_id);
                            });
 
                 if (_type=='from_id')
@@ -4869,20 +4909,28 @@ function create_satellite(data_id,_type)
                          
                            
                            row_cards.classed('blacked',false);
-                           cards.classed('satellite_selected',false);
+                           
+                           
+
                            row_cards.classed('satellite_selected',true);
-                           row_cards.transition().duration(150).style('opacity',1);
+                           row_cards.classed('low_opacity',false);
+                         //  return false
+                           //row_cards.transition().duration(150).style('opacity',1);
+
                          }
                          else
                          {
                             var this_to_plot=t_obj_to;                            
 
                                 col_cards.classed('blacked',false);
-
-                                cards.classed('satellite_selected',false);
-                                col_cards.classed('satellite_selected',true);
                                 
-                                col_cards.style('opacity',1);
+
+                                col_cards.classed('satellite_selected',true);
+                                col_cards.classed('low_opacity',false);
+
+                               // return false
+                                
+                                //col_cards.style('opacity',1);
                              
                          }
 
@@ -4916,26 +4964,53 @@ function create_satellite(data_id,_type)
     
        $('#vis-container').on('mouseenter',function(event)
           {
-            if (options.config.satellites==false)
+
+             if (options.config.satellites==false)
               return false;
 
-           cards.classed('individual_satellite',false);
+            var _type=$('#satellite_selects_opt form').find('input:checked').attr('id');
+            console.log(options.config.satellites)
+            
+           
+
+            cards.classed('individual_satellite',false);
            // console.log($(d3v5.event.target)[0]['__data__'])
             console.log('mouseentering vis-container')
             cards.classed('blacked', true);
+            cards.classed('low_opacity',true)
+
             cards.classed('satellite_selected',false);
+
+            col_cards=cards.filter(function(d)
+                                     {
+                                       if (d.to_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      }) 
+            row_cards=cards.filter(function(d)
+                                     {
+                                       if (d.from_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      })  
             
             if (_type=='from_id')
-            {             
+            {   
+              console.log(row_cards)
               row_cards.classed('blacked',false);
               row_cards.classed('satellite_selected',true);
-              row_cards.style('opacity',1);
+              row_cards.classed('low_opacity',false);
+              console.log($('.low_opacity').length)
             }
-            else
+            if (_type=='to_id')
             {
+                       
               col_cards.classed('blacked',false);
               col_cards.classed('satellite_selected',true);
-              col_cards.style('opacity',1);
+              col_cards.classed('low_opacity',false);
+              
             }
           }).on('mouseleave',function(e)
           {
@@ -4949,23 +5024,50 @@ function create_satellite(data_id,_type)
           //.moon 
           $('#vis-container .planets').on('mouseover',function(e)
           {
-                if (options.config.satellites==false)
+
+            if (options.config.satellites==false)
               return false;
+
+            console.log('PLANETS')
+            var _type=$('#satellite_selects_opt form').find('input:checked').attr('id');
+            console.warn(_type)
+
+    /*            if (options.config.satellites==false)
+              return false;*/
 
                 cards.classed('individual_satellite',false);
                  var data=$(e.target)[0]['__data__'];
           
                  cards.classed('blacked',true);
+                 cards.classed('low_opacity',true);
+
+                 col_cards=cards.filter(function(d)
+                                     {
+                                       if (d.to_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      }) 
+                row_cards=cards.filter(function(d)
+                                     {
+                                       if (d.from_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      })  
+
 
                  if (_type=='from_id')
                  {
+                  console.warn('planets on row_cards')
                     var sel=row_cards.filter(function(d2)
                            {
                               
-                             
+                             console.info(d2)
+                             console.warn(data)
                              if (parseInt(d2.value)==parseInt(data.value))
                              {
-                               
+                               console.log(this)
                                return this;
                              }
                               
@@ -4973,24 +5075,38 @@ function create_satellite(data_id,_type)
                            console.log(sel)
                            console.warn(row_cards)                 
                  
-                    row_cards.classed('blacked',false).style('opacity',0.2);
+                    row_cards.classed('blacked',false);
+                    row_cards.classed('low_opacity',true)
+                    //.style('opacity',0.2);
+                    //cards.classed('low_opacity',true);
 
-                    sel.classed('blacked',false).classed('individual_satellite',true).transition().duration(250).style('opacity',1)
+                    sel.classed('blacked',false)
+                    sel.classed('individual_satellite',true)
+                    sel.classed('low_opacity',false);
+                    //.transition().duration(250).style('opacity',1)
                     
                  }
-                 else
+                 
+                 if (_type=='to_id')
                  {
+                  console.warn('planets on col_cards')
                     var sel=col_cards.filter(function(d2)
                              {                              
                                if (parseInt(d2.value)==parseInt(data.value))
                                {
-                                 
+                                 console.info(d2)
+                             console.warn(data)
                                  return this;
                                }
                              })                    
-                   
-                      col_cards.classed('blacked',false).style('opacity',0.2)
-                      sel.classed('blacked',false).classed('individual_satellite',true).transition().duration(250).style('opacity',1)
+                      console.log(sel)
+                      col_cards.classed('blacked',false);
+                      col_cards.classed('low_opacity',true);
+                      //.style('opacity',0.2)
+                      sel.classed('blacked',false)
+                      sel.classed('individual_satellite',true)
+                      sel.style('opacity',1)
+                      sel.classed('low_opacity',false);
                  }
 
     
@@ -5002,17 +5118,41 @@ function create_satellite(data_id,_type)
             if (options.config.satellites==false)
               return false;
 
+            col_cards=cards.filter(function(d)
+                                     {
+                                       if (d.to_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      }) 
+            row_cards=cards.filter(function(d)
+                                     {
+                                       if (d.from_id==data_id && d.value!==null)
+                                       {
+                                          return this;
+                                       }
+                                      })  
+
+            var _type=$('#satellite_selects_opt form').find('input:checked').attr('id');
+
+            if (options.config.satellites==false)
+              return false;
+
             cards.classed('individual_satellite',false);
             console.log('mouseleave planet circles')
         
               if (_type=='from_id')
                  {                     
-                    row_cards.classed('blacked',false).classed('individual_satellite',false).style('opacity',1);
+                    row_cards.classed('blacked',false).classed('individual_satellite',false)
+                    //.style('opacity',1);
+                    row_cards.classed('low_opacity',false);
                  }
               else
               {
                     
-                    col_cards.classed('blacked',false).classed('individual_satellite',false).style('opacity',1);
+                    col_cards.classed('blacked',false).classed('individual_satellite',false);
+                    col_cards.classed('low_opacity',false);
+                    //.style('opacity',1);
               }
           });
     }
