@@ -1,7 +1,8 @@
 # Enabling Sustainable Development Goals
 
+
 This tool provides simple means to explore complex interlinkages between the SDGs to get a more profound knowledge base for your decision making process and obtain a bigger picture of your activities’ potential impacts.
------------------------------------------------------------------------------------------------------
+
 
 ## Create a matrix
 
@@ -24,7 +25,7 @@ Change matrix values by clicking on the Goal name.
 
 
 
------------------------------------------------------------------------------------------------------
+--
 
 
 ## Explore results 
