@@ -91,10 +91,18 @@
 {
   opacity: 1!important;
 }
+.print_div
+{
+  display: none;
+}
+.print_div:hover
+{
+  cursor: pointer;
+}
 .blacked
 {
-  stroke:#2378ae;
-    border: 10px solid red!important;
+  /*stroke:#2378ae;
+    border: 10px solid red!important;*/
   fill: #2e2525!important;
   opacity: 0.2!important;
 }
