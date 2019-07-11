@@ -12,6 +12,7 @@
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <script src="./materialize.js"></script>
     <link rel="stylesheet" href="./css/materialize.min.css">
+    <script src="./html2canvas.js"></script> 
       <script src="./satchart.js"></script>   
      <script src="./d3_v5.min.js"></script>
 
@@ -38,6 +39,15 @@
       <a class="waves-effect waves-light btn index_sat">Explore results</a>
     </div>   
   </div>
+
+  <div id="print_modal" class="modal">
+    <div class="modal-content">
+      <h5>Printing satellite graph</h5>
+      <p>We are processing your printing request. In a few seconds your browser should download an image containing the sallite graph</p>
+      <p>Please wait...</p>
+    </div>   
+  </div>
+
 <div class="wrapper">
    <ul id="slide-out" class="side-nav">
       <div>
@@ -175,6 +185,7 @@
                                    
                                     
                                   </select>
+                                  <div class="print_div"><i class="material-icons md-light print">local_printshop</i></div>
                                  
 
                                  
@@ -182,6 +193,7 @@
 
                           
                               <div id="vis-container"></div>
+
                           </div>
                     </li>
                 </ul>
@@ -334,6 +346,17 @@ var new_params={};
                                  } // Callback for Modal close
                               });
 
+
+        $('#print_modal').modal(
+                            {
+                                dismissible: false, // Modal can be dismissed by clicking outside of the modal
+                                opacity: .9, // Opacity of modal background
+                                inDuration: 100, // Transition in duration
+                                outDuration: 200, // Transition out duration
+                                startingTop: '14%', // Starting top style attribute
+                                endingTop: '30%'
+                              });
+
 $('#intro_modal').modal('open');     
 
  $('#intro_modal .modal-content').find('.btn').click(function()
@@ -342,7 +365,7 @@ $('#intro_modal').modal('open');
                                     if ($(this).hasClass('index'))
                                     {
                                   
-										window.location.replace('https://lucageo.github.io/enablingsdgs/sdgs_make_matrix.html')
+										window.location.replace('http://d6-dev-sdgitk.ies.jrc.it/sdgs_toolkit2/index.html')
                                     }
                                     else
                                     {
@@ -356,6 +379,9 @@ $('#intro_modal').modal('open');
 
                                  
                                     $('#intro_modal').modal('close'); 
+                                   
+
+                                 
                                 })
        
           
@@ -1117,11 +1143,15 @@ $('#intro_modal').modal('open');
 
 
                chart.buckets= these_targets_data.length;
-               buckets=these_targets_data.length
-                if (window.innerHeight>900)
+               buckets=these_targets_data.length;
+               
+                 if (window.innerHeight>800 && window.innerWidth>1600)
                        width_px=780;
 
-                    if (window.innerHeight<900 && window.innerHeight>700)
+                     if (window.innerHeight>800 && window.innerWidth<1600)
+                       width_px=700;
+
+                    if (window.innerHeight<800 && window.innerHeight>700)
                        width_px=650;
                      //width_px=$('#chart').width();
 
@@ -1489,12 +1519,29 @@ $('#intro_modal').modal('open');
       function create_chart()
                  {
 
-                    if (window.innerHeight>900)
+                     if (window.innerHeight>800 && window.innerWidth>1600)
                        width_px=780;
 
-                    if (window.innerHeight<900 && window.innerHeight>700)
+                     if (window.innerHeight>800 && window.innerWidth<1600)
+                       width_px=700;
+
+                    if (window.innerHeight<800 && window.innerHeight>700)
                        width_px=650;
                      //width_px=$('#chart').width();
+
+                     /*
+                        if (window.innerHeight>900)
+                       width_px=880;
+
+                    if (window.innerHeight<900 && window.innerHeight>800)
+                       width_px=750;
+
+                     if (window.innerHeight<800 && window.innerHeight>700)
+                       width_px=650;
+
+                     if (window.innerHeight<700)// && window.innerHeight>700)
+                       width_px=600;
+                     */
 
                      chart.width_px=width_px;
 
@@ -1519,8 +1566,10 @@ $('#intro_modal').modal('open');
                        var h=width_px + margin.top + margin.bottom;
 
 
-                       $('.svg-container').height(w);
-                       $('.svg-container').width(h);
+                       $('.svg-container').height(840);
+                       $('.svg-container').width(w);
+                       
+                      // alert($('.svg-container').css('height'))
 
 
 
@@ -1528,14 +1577,23 @@ $('#intro_modal').modal('open');
                              svg = d3v5.select(".svg-container").append("svg")
                              //responsive SVG needs these 2 attributes and no width and height attr
                               .attr("preserveAspectRatio", "xMinYMin meet")
+
+                              //viewBox makes matrix unavailable for printing with html2canvas
+                              /*
+                              The viewBox attribute defines the position and dimension, in user space, of an SVG viewport.
+
+                                The value of the viewBox attribute is a list of four numbers min-x, min-y, width and height, separated by whitespace and/or a comma,
+                               which specify a rectangle in user space which is mapped to the bounds of the viewport established for the associated element.
+                              */
                               .attr("viewBox", '0 0 '+w+' '+h+'')
                               //class to make it responsive
                               .classed("svg-content-responsive", true)
-                               //.attr("width", width + margin.left + margin.right)
-                              //.attr("height", height + margin.top + margin.bottom)
+                               .attr("width", width + margin.left + margin.right)
+                              .attr("height", height + margin.top + margin.bottom)
                                .append("g")
                                .classed('g_matrix',true)
                                .attr("transform", "translate(" + (margin.left+25) + "," + margin.top + ")");
+                    console.warn($('.svg-content-responsive').css('height'))
                  }
 
      function create_legend()
@@ -1671,13 +1729,15 @@ $('#intro_modal').modal('open');
                  create_chart()
 
                  heatmap(params.to_plot);
-
+                 
                }
                else
                {
                      create_chart();
 
                       heatmap(params.to_plot);
+
+                      console.warn($('.svg-container').css('height')+' ssss')
 
                       console.info($('.yLabels_counter:last').attr('transform'));
                       console.info($('.yLabels_counter:last').attr('x'));
@@ -3265,7 +3325,7 @@ $('#intro_modal').modal('open');
                                }
                            })
 
-
+        //labels on columns
         var yLabels = svg.selectAll(".yLabels")
          .data(selected_labels, function(d) {
           
@@ -3280,7 +3340,7 @@ $('#intro_modal').modal('open');
            .style("text-anchor", "end")
            .style("font-size",function(d)
                        {
-                         return 12;
+                         return 10;
                        })
 
 
@@ -3500,6 +3560,10 @@ $('#intro_modal').modal('open');
            .attr("x", function(d, i) { return i * gridSize; })
            .attr("y", 0)
            .style("text-anchor", "middle")
+           .style("font-size",function(d)
+                       {
+                         return 10;
+                       })
            // .style("font-size",function(d)
            //             {
            //               console.log(chart.gridSize/chart.buckets);
@@ -3742,10 +3806,12 @@ $('#intro_modal').modal('open');
                      cards.select("title").text(function(d) { return d.value; });
 
                      cards.exit().remove();
+                     console.warn($('.svg-container').attr('height')+' bbbbb')
 
                  update_vis_labels_counts (selected_labels)
 
                     setTimeout(function()
+
 						    {
 						 		$('.ul_stats .collapsible-header').click()
 						    },1000)
@@ -4678,6 +4744,53 @@ $('#satellite_selects_opt .btn').on('click',function(e)
                 }
 })                  
 
+          $('.print').click(function(e)
+                                    {
+                                      e.preventDefault();
+                                      //$('text').hide()
+                                      $('#print_modal').modal('open');
+                                      setTimeout(function()
+                                      {
+
+
+                                      
+                                      //better matrix, no text with canvas_old
+                                      html2canvas(document.querySelector("#vis-container"),{
+
+                                      //much biggerr space below matrix, no text with canvas_old
+                                       //html2canvas(document.querySelector(".svg-container"),{
+                                                          
+                                                        }).then(function(canvas){
+
+                                                                
+                                                                var imgageData = canvas.toDataURL("image/png");
+                                                                var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                                                                $("<a>", {href:newData, download:"legend.png",on:{click:function(){$(this).remove()}}})
+                                                                .appendTo("body")[0].click(); 
+                                                                $('#print_modal').modal('close');
+                                                                return false;
+
+                                                                                                                      
+                                                         })
+                                        },500)
+                                      /*html2canvas(document.querySelector(".svg-content-responsive"),{
+
+                                      //much biggerr space below matrix, no text with canvas_old
+                                       //html2canvas(document.querySelector(".svg-container"),{
+                                                          
+                                                        }).then(function(canvas){
+
+                                                                
+                                                                var imgageData = canvas.toDataURL("image/png");
+                                                                var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                                                                $("<a>", {href:newData, download:"legend.png",on:{click:function(){$(this).remove()}}})
+                                                                .appendTo("body")[0].click(); 
+                                                                return false;
+
+                                                                                                                      
+                                                         })*/
+                                    })
+
 function create_satellite(data_id,_type,e)
     {
       console.trace()
@@ -4691,7 +4804,8 @@ function create_satellite(data_id,_type,e)
  
         options.config.satellites=true;
          
-        $('#vis-container').trigger('mouseenter')
+        $('#vis-container').trigger('mouseenter');
+        $('.print_div').show();
 
         if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off'))
         {
@@ -4713,6 +4827,7 @@ function create_satellite(data_id,_type,e)
         $('#vis-container').empty();
          
               $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply'); 
+              $('.print_div').hide();
 
         return false
           
@@ -4735,7 +4850,7 @@ function create_satellite(data_id,_type,e)
       //options.config.satellites=true;
       $('.fixed_col_row').removeClass('fixed_col_row');
 
-      $('.ul_satellite').show();
+      $('.ul_satellite,.print').show();
       $('.satellite_selects_opt .btn').show()
       console.info(arguments)
       var cards=d3v5.selectAll('.link').filter(function(data)
